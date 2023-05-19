@@ -11,7 +11,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class User {
 
     public interface CreateUser{}
@@ -65,15 +65,41 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public User id(Integer id) {
+        setId(id);
+        return this;
+    }
+
+    public User username(String username) {
+        setUsername(username);
+        return this;
+    }
+
+    public User password(String password) {
+        setPassword(password);
+        return this;
+    }
+
     @Override
-    public boolean equals(Object obj){
-        if (obj == this)
+    public boolean equals(Object o) {
+        if (o == this)
             return true;
-        if(! obj instanceof User){
+        if (!(o instanceof User)) {
             return false;
         }
-        User user =(User) obj;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password);
+    }
+
+        
+
+  
  
 
 
