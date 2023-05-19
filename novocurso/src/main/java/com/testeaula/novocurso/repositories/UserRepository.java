@@ -6,4 +6,6 @@ import com.testeaula.novocurso.models.User;
 
 public interface UserRepository extends JpaRepository<User,Long> {
     
+
+    
 }
