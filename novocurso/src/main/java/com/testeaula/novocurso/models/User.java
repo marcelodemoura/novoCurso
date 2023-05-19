@@ -5,7 +5,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -28,19 +32,19 @@ public class User {
     @Column(name = "password")//, length = 60, nullable = false )
     private String password;
 
-   //private List<Task> task = new ArrayList<>(null){};
+    @OneToMany(mappedBy = "user")
+    private List<Task> task = new ArrayList<Task>();
 
 
     public User() {
     }
 
-
-    public User(Integer id, String username, String password) {
+    public User(Integer id, String username, String password, List<Task> task) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.task = task;
     }
-
 
     public Integer getId() {
         return this.id;
@@ -66,6 +70,14 @@ public class User {
         this.password = password;
     }
 
+    public List<Task> getTask() {
+        return this.task;
+    }
+
+    public void setTask(List<Task> task) {
+        this.task = task;
+    }
+
     public User id(Integer id) {
         setId(id);
         return this;
@@ -81,27 +93,26 @@ public class User {
         return this;
     }
 
+    public User task(List<Task> task) {
+        setTask(task);
+        return this;
+    }
+
     @Override
-    public boolean equals(Object o) {
-        if (o == this)
+    public boolean equals(Object obj) {
+        if (obj == this)
             return true;
-        if (!(o instanceof User)) {
+        if (!(obj instanceof User)) {
             return false;
         }
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        User user = (User) obj;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username) && 
+        Objects.equals(password, user.password) && Objects.equals(task, user.task);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, password);
+        return Objects.hash(id, username, password, task);
     }
-
-        
-
-  
- 
-
-
 
 }
