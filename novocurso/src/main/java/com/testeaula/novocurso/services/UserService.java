@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.testeaula.novocurso.models.User;
-import com.testeaula.novocurso.repositories.TaskReposytory;
 import com.testeaula.novocurso.repositories.UserRepository;
 
 @Service
@@ -23,15 +22,10 @@ public class UserService {
 
     }
     
-    @Autowired
-    private TaskReposytory taskReposytory;
-
-
     @Transactional
     public User create(User obj) {
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskReposytory.saveAll(obj.getTask());
         return obj;
     }
 
