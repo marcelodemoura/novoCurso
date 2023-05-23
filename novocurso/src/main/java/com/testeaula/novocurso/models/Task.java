@@ -8,10 +8,22 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
+
+
+
 @Table(name = "tb_task")
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Task {
 
     @Id
@@ -26,7 +38,7 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    public Task() {
+    /*public Task() {
     }
 
     public Task(Long id, User user, String description) {
@@ -88,7 +100,7 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id, user, description);
-    }
+    }*/
 
     
     

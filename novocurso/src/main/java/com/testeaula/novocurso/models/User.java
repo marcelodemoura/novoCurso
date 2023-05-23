@@ -7,17 +7,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 
 
 @Entity
 @Table(name = "tb_user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class User {
 
     public interface CreateUser{}
@@ -35,10 +46,11 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
+    @JsonProperty(access = Access.WRITE_ONLY)
     private List<Task> task = new ArrayList<Task>();
 
 
-    public User() {
+    /*public User() {
     }
 
     public User(Long id, String username, String password, List<Task> task) {
@@ -116,6 +128,6 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, password, task);
-    }
+    }*/
 
 }
