@@ -2,6 +2,7 @@ package com.testeaula.novocurso.services;
 
 import java.util.Optional;
 
+import com.testeaula.novocurso.services.exceptions.DataBindingViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,7 +43,7 @@ public class UserService {
 
             this.userRepository.deleteById(id);
         }catch(Exception e){
-            throw new RuntimeException("Não e possivel excluir a relacionamento entre a entidade! ");
+            throw new DataBindingViolationException("Não e possivel excluir a relacionamento entre a entidade! ");
         }
     }
 

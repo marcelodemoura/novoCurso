@@ -3,6 +3,8 @@ package com.testeaula.novocurso.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.testeaula.novocurso.services.exceptions.DataBindingViolationException;
+import com.testeaula.novocurso.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +25,8 @@ private UserService userService;
 
 public Task findById(Long id){
     Optional<Task> task = this.taskReposytory.findById(id);
-    return task.orElseThrow(() -> new RuntimeException("Tarefa não encontrada!" + id + ",Tipo: " + Task.class.getName()));
+    return task.orElseThrow(() -> new ObjectNotFoundException(
+            "Tarefa não encontrada!" + id + ",Tipo: " + Task.class.getName()));
 }
 
 public List<Task>findAllByUserId(Long userId){
@@ -52,7 +55,7 @@ public void delete(Long id){
     try{
         this.taskReposytory.deleteById(id);  
     }catch(Exception e){
-        throw new RuntimeException("Não é possivel excluir pois a entidade eatá relacionada! ");
+        throw new DataBindingViolationException("Não é possivel excluir pois a entidade eatá relacionada! ");
     }
 }
 
